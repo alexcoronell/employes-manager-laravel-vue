@@ -18,7 +18,10 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "chartjs": "^0.3.24",
         "fontawesome-free": "^1.0.4",
-        "sweetalert2": "^11.7.12"
+        "sweetalert2": "^11.7.12",
+        "vue-chartjs": "^5.2.0",
+        "vue-tailwind-pagination": "^1.1.3"
     }
 }
