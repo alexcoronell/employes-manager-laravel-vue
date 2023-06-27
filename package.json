@@ -19,6 +19,9 @@
     },
     "dependencies": {
         "chartjs": "^0.3.24",
+        "datatables.net": "^1.13.4",
+        "datatables.net-buttons": "^2.3.6",
+        "datatables.net-responsive-dt": "^2.4.1",
         "datatables.net-vue3": "^2.1.1",
         "fontawesome-free": "^1.0.4",
         "sweetalert2": "^11.7.12",
