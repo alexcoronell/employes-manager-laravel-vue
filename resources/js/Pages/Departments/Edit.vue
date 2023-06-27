@@ -29,7 +29,7 @@ const form = useForm({
                     <form @submit.prevent="$event => form.patch(route('departments.update', department))" class="mt-6 space-y-6 max-w-xl">
                         <InputLabel for="name" value="Department"></InputLabel>
                         <TextInput type="text" id="name" v-model="form.name" autofocus required class="mt-1 block w-full"></TextInput>
-                        <!-- <InputError :message="form.errors.name" class="mt-2"></InputError> -->
+                        <InputError :message="form.errors.name" class="mt-2"></InputError>
                         <PrimaryButton :disable="form.processing"><i class="fa-solid fa-save"></i> Save</PrimaryButton>
                     </form>
                 </div>
