@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
-use App\Models\Departments;
+use App\Models\Department;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use DB;
@@ -15,10 +15,11 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees = Employee::select('employees.id', 'employees.name', 'employees.email', 'employees.phone', 'employees.department_id'. 'departments.name as department')
+        $employees = Employee::select('employees.id', 'employees.name', 'employees.email', 'employees.phone', 'employees.department_id', 'departments.name as department')
         ->join('departments', 'departments.id', '=', 'employees.department_id')
         ->paginate(10);
-        $departments = Department::all();
+
+        $departments = Department::all();        
         return Inertia::render('Employees/Index', ['employees' => $employees, 'departments' => $departments]);
     }
 
