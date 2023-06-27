@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
+use Intertia\Inertia;
 
 class DepartmentController extends Controller
 {
@@ -12,7 +13,8 @@ class DepartmentController extends Controller
      */
     public function index()
     {
-        //
+       $departments = Department::all();
+       return Inertia::render('Departments/Index', ['departments' => $departments]);
     }
 
     /**
@@ -20,7 +22,7 @@ class DepartmentController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Departments/Create');
     }
 
     /**
@@ -28,7 +30,10 @@ class DepartmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required|max:100']);
+        $department = new Department($request->input());
+        $department->save();
+        return redirect('departments');
     }
 
     /**
@@ -44,7 +49,7 @@ class DepartmentController extends Controller
      */
     public function edit(Department $department)
     {
-        //
+        return Inertia::render('Departments/Edit', ['department' => $department]);
     }
 
     /**
@@ -52,7 +57,9 @@ class DepartmentController extends Controller
      */
     public function update(Request $request, Department $department)
     {
-        //
+        $request->validate(['name' => 'required|max:100']);
+        $department->update($request->all());
+        return redirect('departments');
     }
 
     /**
@@ -60,6 +67,7 @@ class DepartmentController extends Controller
      */
     public function destroy(Department $department)
     {
-        //
+        $department->delete();
+        return redirect('departments');
     }
 }
