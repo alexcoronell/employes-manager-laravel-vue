@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Departments;
 use Illuminate\Http\Request;
+use Intertia\Inertia;
+use DB;
 
 class EmployeeController extends Controller
 {
@@ -12,15 +15,11 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $employees = Employee::select('employees.id', 'employees.name', 'employees.email', 'employees.phone', 'employees.department_id'. 'departments.name as department')
+        ->join('departments', 'departments.id', '=', 'employees.department_id')
+        ->paginate(10);
+        $departments = Department::all();
+        return Inertia::render('Employees/Index', ['employees' => $employees, 'departments' => $departments]);
     }
 
     /**
@@ -28,23 +27,15 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Employee $employee)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Employee $employee)
-    {
-        //
+        $request->validate([
+            'name' => 'required|max:150',
+            'email' => 'required|max:150',
+            'phone' => 'required|max:150',
+            'department_id' => 'required|max:150'
+        ]);
+        $employee = new Employee($request->input());
+        $employee->save();
+        return redirect('employees');
     }
 
     /**
@@ -52,7 +43,14 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+        $request->validate([
+            'name' => 'required|max:150',
+            'email' => 'required|max:150',
+            'phone' => 'required|max:150',
+            'department_id' => 'required|max:150'
+        ]);
+        $employee->update($request->input());
+        return redirect('employees');
     }
 
     /**
@@ -60,6 +58,25 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+        return redirect('employees');
+    }
+
+    public function EmployeeByDepartment()
+    {
+        $data = Employee::select(DB::raw('count(employees.id) as count, departments.name'))
+        ->join('departments', 'departments.id', '=', 'employees.department_id')
+        ->groupBY('departments.name')
+        ->get();
+        return Inertia::render('Employees/Graphic', ['data' => $data]);
+    }
+
+    public function reports()
+    {
+        $employees = Employee::select('employees.id', 'employees.name', 'employees.email', 'employees.phone', 'employees.department_id'. 'departments.name as department')
+        ->join('departments', 'departments.id', '=', 'employees.department_id')
+        ->get();
+        $departments = Department::all();
+        return Inertia::render('Employees/Reports', ['employees' => $employees, 'departments' => $departments]);
     }
 }
