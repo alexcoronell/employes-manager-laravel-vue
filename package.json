@@ -19,6 +19,7 @@
     },
     "dependencies": {
         "chartjs": "^0.3.24",
+        "datatables.net-vue3": "^2.1.1",
         "fontawesome-free": "^1.0.4",
         "sweetalert2": "^11.7.12",
         "vue-chartjs": "^5.2.0",
