@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Department;
 use Illuminate\Http\Request;
-use Intertia\Inertia;
+use Inertia\Inertia;
 
 class DepartmentController extends Controller
 {

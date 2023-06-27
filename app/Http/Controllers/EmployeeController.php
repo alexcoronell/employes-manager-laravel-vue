@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\Departments;
 use Illuminate\Http\Request;
-use Intertia\Inertia;
+use Inertia\Inertia;
 use DB;
 
 class EmployeeController extends Controller
