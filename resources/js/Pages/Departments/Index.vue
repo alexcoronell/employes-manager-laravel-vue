@@ -12,7 +12,7 @@ const form = useForm({
     id: ''
 })
 
-const deleteDepartment = () => {
+const deleteDepartment = (id) => {
     const alertMessage = Swal.mixin({
         buttonsStyling: true
     });
@@ -65,7 +65,7 @@ const deleteDepartment = () => {
                                 </Link>
                             </td>
                             <td class="border border-gray-400 p-4">
-                                <DangerButton @click="$event => deleteDepartment(dep.id, dep.name)">
+                                <DangerButton @click="$event => deleteDepartment(dep.id)">
                                     <i class="fa-solid fa-plus-trash py-2"></i>
                                 </DangerButton>
                             </td>
